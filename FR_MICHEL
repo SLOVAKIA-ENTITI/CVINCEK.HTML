@@ -1,0 +1,58 @@
+/*
+* ^ - Starts with
+* $ - Ends with
+* [] - Range
+* () - Group
+* , - Single character once
+* + - one or more characters in row
+* ? - optional preceding character match
+* \ - escape character
+* \n - New line
+* \d - Digit
+* \D - Non-digit
+* \s - White space
+* \S - non-white space
+* \w - alphanumeric/underscore character (word chars)
+* \W - non-word characters
+* {x,y} - Repeat low (x) to high (y) (no "y" means that many)
+* (x|y) - Alternative - x or y
+*
+* [^x] - Anything but x (where x is whatever character you want)
+*/
+
+
+using System.Text.RegularExpressions;
+
+string SPZ = "ZA-123DF BA-123AB BB-123AS ZA-223AD BA-223DA BB-223DA ZA-323DF BA-323TE BB-323UZ ZA-423PI BA-423OI BB-423UI ZA-523TU BA-523NG BB-523RE ZA-623QW BA-623CD BB-623DX ZA-723JH BA-723KL BB-723LK ZA-823OL BA-823LO BB-823GF ZA-923TR BA-923VS BB-923BN ZA-103EG BA-103ER BB-103SS";
+string paternZA = @"ZA-\d{3}\D{2}";
+string paternBA = @"BA-\d{3}\D{2}";
+string paternBB = @"BB-\d{3}\D{2}";
+
+Console.WriteLine("\n\nŽilina\n");
+
+MatchCollection matchesZA = Regex.Matches(SPZ, paternZA);
+
+foreach (Match match in matchesZA)
+{
+Console.WriteLine(match.Value);
+}
+
+Console.WriteLine("\n\nBratislava\n");
+
+MatchCollection matchesBA = Regex.Matches(SPZ, paternBA);
+
+foreach (Match match in matchesBA)
+{
+Console.WriteLine(match.Value);
+}
+
+Console.WriteLine("\n\nBanská Bystrica\n");
+
+MatchCollection matchesBB = Regex.Matches(SPZ, paternBB);
+
+foreach (Match match in matchesBB)
+{
+Console.WriteLine(match.Value);
+}
+
+Console.WriteLine("som gej aj remis je gej");
