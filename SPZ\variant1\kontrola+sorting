@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "ZA-365AA BA-123BB TT-999CC ZA-654DD KE-111EE NR-222FF BA-888GG";
+
+        // Zoznamy pre okresy
+        List<string> spzZA = new List<string>();
+        List<string> spzBA = new List<string>();
+        List<string> spzTT = new List<string>();
+        List<string> spzKE = new List<string>();
+        List<string> spzNR = new List<string>();
+        // ... môžeš pridať ďalšie okresy podľa potreby
+
+        // Prechádzame string a hľadáme SPZ
+        for (int i = 0; i < input.Length - 8; i++) // SPZ má 8 znakov napr. ZA-365AA
+        {
+            // Skontrolujeme formát: AA-999AA
+            if (char.IsUpper(input[i]) &&
+                char.IsUpper(input[i + 1]) &&
+                input[i + 2] == '-' &&
+                char.IsDigit(input[i + 3]) &&
+                char.IsDigit(input[i + 4]) &&
+                char.IsDigit(input[i + 5]) &&
+                char.IsUpper(input[i + 6]) &&
+                char.IsUpper(input[i + 7]))
+            {
+                string spz = input.Substring(i, 8);
+                string okres = spz.Substring(0, 2);
+
+                // Priraďovanie podľa okresu
+                if (okres == "ZA") spzZA.Add(spz);
+                else if (okres == "BA") spzBA.Add(spz);
+                else if (okres == "TT") spzTT.Add(spz);
+                else if (okres == "KE") spzKE.Add(spz);
+                else if (okres == "NR") spzNR.Add(spz);
+                // ďalšie okresy môžeš doplniť podľa potreby
+            }
+        }
+
+        // Výpis výsledkov
+        Console.WriteLine("ZA: " + string.Join(", ", spzZA));
+        Console.WriteLine("BA: " + string.Join(", ", spzBA));
+        Console.WriteLine("TT: " + string.Join(", ", spzTT));
+        Console.WriteLine("KE: " + string.Join(", ", spzKE));
+        Console.WriteLine("NR: " + string.Join(", ", spzNR));
+    }
+}
