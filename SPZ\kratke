@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "ZA-365AA BA-123BB TT-999CC ZA-654DD KE-111EE NR-222FF BA-888GG";
+
+        // Listy pre jednotlivé okresy
+        List<string> spzZA = new List<string>();
+        List<string> spzBA = new List<string>();
+        List<string> spzTT = new List<string>();
+        List<string> spzKE = new List<string>();
+        List<string> spzNR = new List<string>();
+
+        // Rozdelenie textu na jednotlivé SPZ (oddelené medzerou)
+        string[] spzList = input.Split(' ');
+
+        // triedenie podľa okresu
+        foreach (string spz in spzList)
+        {
+            if (spz.StartsWith("ZA")) spzZA.Add(spz);
+            else if (spz.StartsWith("BA")) spzBA.Add(spz);
+            else if (spz.StartsWith("TT")) spzTT.Add(spz);
+            else if (spz.StartsWith("KE")) spzKE.Add(spz);
+            else if (spz.StartsWith("NR")) spzNR.Add(spz);
+        }
+
+        // Výpis výsledkov
+        Console.WriteLine("ZA: " + string.Join(", ", spzZA));
+        Console.WriteLine("BA: " + string.Join(", ", spzBA));
+        Console.WriteLine("TT: " + string.Join(", ", spzTT));
+        Console.WriteLine("KE: " + string.Join(", ", spzKE));
+        Console.WriteLine("NR: " + string.Join(", ", spzNR));
+    }
+}
