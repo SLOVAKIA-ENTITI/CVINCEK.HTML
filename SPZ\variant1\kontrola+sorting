@@ -40,6 +40,19 @@ class Program
                 // ďalšie okresy môžeš doplniť podľa potreby
             }
         }
+         // Funkcia na extrakciu číselnej časti SPZ
+        int ExtractNumber(string spz)
+        {
+            string numStr = spz.Substring(3, 3); // napr. ZA-365AA -> "365"
+            return int.TryParse(numStr, out int num) ? num : int.MaxValue;
+        }
+
+        // Zoradenie v každom okrese
+        spzZA.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzBA.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzTT.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzKE.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzNR.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
 
         // Výpis výsledkov
         Console.WriteLine("ZA: " + string.Join(", ", spzZA));
