@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "ZA-365AA BA-123BB TT-999CC ZA-654DD KE-111EE NR-222FF BA-888GG";
+
+        List<string> spzZA = new List<string>();
+        List<string> spzBA = new List<string>();
+        List<string> spzTT = new List<string>();
+        List<string> spzKE = new List<string>();
+        List<string> spzNR = new List<string>();
+
+        string[] spzList = input.Split(' ');
+
+        foreach (string spz in spzList)
+        {
+            if (spz.Length >= 2)
+            {
+                string okres = $"{spz[0]}{spz[1]}";
+
+                switch (okres)
+                {
+                    case "ZA":
+                        spzZA.Add(spz);
+                        break;
+                    case "BA":
+                        spzBA.Add(spz);
+                        break;
+                    case "TT":
+                        spzTT.Add(spz);
+                        break;
+                    case "KE":
+                        spzKE.Add(spz);
+                        break;
+                    case "NR":
+                        spzNR.Add(spz);
+                        break;
+                }
+            }
+        }
+
+        // Výpis
+        Console.WriteLine("ZA: " + string.Join(", ", spzZA));
+        Console.WriteLine("BA: " + string.Join(", ", spzBA));
+        Console.WriteLine("TT: " + string.Join(", ", spzTT));
+        Console.WriteLine("KE: " + string.Join(", ", spzKE));
+        Console.WriteLine("NR: " + string.Join(", ", spzNR));
+    }
+}
