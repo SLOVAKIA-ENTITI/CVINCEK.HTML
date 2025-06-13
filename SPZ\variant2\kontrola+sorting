@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "ZA-365AA BA-123BB TT-999CC ZA-654DD KE-111EE NR-222FF BA-888GG";
+
+        List<string> spzZA = new();
+        List<string> spzBA = new();
+        List<string> spzTT = new();
+        List<string> spzKE = new();
+        List<string> spzNR = new();
+
+        string[] spzList = input.Split(' ');
+
+        foreach (string spz in spzList)
+        {
+            if (spz.Length >= 8 && IsSpzValid(spz))
+            {
+                string okres = $"{spz[0]}{spz[1]}";
+
+                switch (okres)
+                {
+                    case "ZA":
+                        spzZA.Add(spz);
+                        break;
+                    case "BA":
+                        spzBA.Add(spz);
+                        break;
+                    case "TT":
+                        spzTT.Add(spz);
+                        break;
+                    case "KE":
+                        spzKE.Add(spz);
+                        break;
+                    case "NR":
+                        spzNR.Add(spz);
+                        break;
+                }
+            }
+        }
+
+        // Zoradenie podľa čísla SPZ (pozície 3–5)
+        spzZA.Sort(CompareByNumber);
+        spzBA.Sort(CompareByNumber);
+        spzTT.Sort(CompareByNumber);
+        spzKE.Sort(CompareByNumber);
+        spzNR.Sort(CompareByNumber);
+
+        // Výpis
+        Console.WriteLine("ZA: " + string.Join(", ", spzZA));
+        Console.WriteLine("BA: " + string.Join(", ", spzBA));
+        Console.WriteLine("TT: " + string.Join(", ", spzTT));
+        Console.WriteLine("KE: " + string.Join(", ", spzKE));
+        Console.WriteLine("NR: " + string.Join(", ", spzNR));
+    }
+
+    // Overí, či SPZ má správny formát (aspoň: XX-123YY)
+    static bool IsSpzValid(string spz)
+    {
+        return spz.Length >= 8 &&
+               char.IsLetter(spz[0]) &&
+               char.IsLetter(spz[1]) &&
+               spz[2] == '-' &&
+               char.IsDigit(spz[3]) &&
+               char.IsDigit(spz[4]) &&
+               char.IsDigit(spz[5]);
+    }
+
+    // Porovnávač SPZ podľa číselnej časti
+    static int CompareByNumber(string a, string b)
+    {
+        int numA = int.Parse(a.Substring(3, 3));
+        int numB = int.Parse(b.Substring(3, 3));
+        return numA.CompareTo(numB);
+    }
+}
