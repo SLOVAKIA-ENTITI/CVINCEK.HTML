@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string input = "ZA-365AA BA-123BB TT-999CC ZA-654DD KE-111EE NR-222FF BA-888GG";
+
+        // Listy pre okresy
+        List<string> spzZA = new();
+        List<string> spzBA = new();
+        List<string> spzTT = new();
+        List<string> spzKE = new();
+        List<string> spzNR = new();
+
+        string[] spzList = input.Split(' ');
+
+        foreach (string spz in spzList)
+        {
+            if (spz.StartsWith("ZA")) spzZA.Add(spz);
+            else if (spz.StartsWith("BA")) spzBA.Add(spz);
+            else if (spz.StartsWith("TT")) spzTT.Add(spz);
+            else if (spz.StartsWith("KE")) spzKE.Add(spz);
+            else if (spz.StartsWith("NR")) spzNR.Add(spz);
+        }
+
+        // Funkcia na extrakciu číselnej časti SPZ
+        int ExtractNumber(string spz)
+        {
+            string numStr = spz.Substring(3, 3); // napr. ZA-365AA -> "365"
+            return int.TryParse(numStr, out int num) ? num : int.MaxValue;
+        }
+
+        // Zoradenie v každom okrese
+        spzZA.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzBA.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzTT.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzKE.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+        spzNR.Sort((a, b) => ExtractNumber(a).CompareTo(ExtractNumber(b)));
+
+        // Výpis
+        Console.WriteLine("ZA: " + string.Join(", ", spzZA));
+        Console.WriteLine("BA: " + string.Join(", ", spzBA));
+        Console.WriteLine("TT: " + string.Join(", ", spzTT));
+        Console.WriteLine("KE: " + string.Join(", ", spzKE));
+        Console.WriteLine("NR: " + string.Join(", ", spzNR));
+    }
+}
